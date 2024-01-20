@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "bedrock-project"
+name = "bedrock-playground"
 version = "0.1.0"
 description = "Playing with Bedrock API"
 authors = ["Noah Sleiman <nksleiman@gmail.com>"]
@@ -12,6 +12,8 @@ requests = "^2.31.0"
 streamlit = "^1.30.0"
 pyyaml = "^6.0.1"
 ipython = "^8.20.0"
+langchain = "^0.1.1"
+langchain-community = "^0.0.13"
 
 
 [tool.poetry.group.dev.dependencies]

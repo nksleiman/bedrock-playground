@@ -1,12 +1,47 @@
 import json
 import os
 import boto3
+from langchain.llms.bedrock import Bedrock
 
-# Set AWS environment variables
-os.environ["AWS_PROFILE"] = "YOUR_PROFILE"
+os.environ["AWS_PROFILE"] = "nsleim"
 region = os.environ["AWS_REGION"] = "us-west-2"
 
-def create_llama_body(prompt):
+'''
+Uses AWS_PROFILE profile string to retrieve API credentials from ~/.aws/credentials
+'''
+def get_bedrock_client():
+    client = boto3.client(service_name='bedrock-runtime', region_name=region)
+    return client
+
+'''
+Uses LangChain Bedrock wrapper to accomplish a zero shot single prompt response from Llama 2
+'''
+def send_prompt_langchain(prompt):
+
+    boto3_bedrock = get_bedrock_client()
+
+    body = {
+        "prompt": prompt,
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "max_gen_len": 512
+    }
+
+    textgen_llm = Bedrock(
+        model_id="meta.llama2-70b-chat-v1",
+        client=boto3_bedrock,
+        model_kwargs=body,
+    )
+
+    response = textgen_llm.invoke(prompt)
+    return response
+
+'''
+Uses Pure Bedrock API to accomplish a zero shot single prompt response from Llama 2
+'''
+def send_prompt_boto3(prompt):
+
+    bedrock = get_bedrock_client()
 
     body = json.dumps({
         "prompt": prompt,
@@ -14,19 +49,12 @@ def create_llama_body(prompt):
         "top_p": 0.9,
         "max_gen_len": 512
     })
-    return body
-
-def send_prompt(prompt):
-
-    bedrock = boto3.client(service_name='bedrock-runtime', region_name='us-west-2')
-
-    prompt_body = create_llama_body(prompt)
 
     modelId = "meta.llama2-70b-chat-v1" 
     accept = 'application/json'
     contentType = 'application/json'
 
-    response = bedrock.invoke_model(body=prompt_body, modelId=modelId, accept=accept, contentType=contentType)
+    response = bedrock.invoke_model(body=body, modelId=modelId, accept=accept, contentType=contentType)
 
     response_body = json.loads(response.get('body').read())
 
