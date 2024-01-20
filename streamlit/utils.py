@@ -3,7 +3,7 @@ import os
 import boto3
 
 # Set AWS environment variables
-os.environ["AWS_PROFILE"] = "nsleim"
+os.environ["AWS_PROFILE"] = "YOUR_PROFILE"
 region = os.environ["AWS_REGION"] = "us-west-2"
 
 def create_llama_body(prompt):
