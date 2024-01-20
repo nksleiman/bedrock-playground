@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "bedrock-project"
+version = "0.1.0"
+description = "Playing with Bedrock API"
+authors = ["Noah Sleiman <nksleiman@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+boto3 = "^1.34.23"
+requests = "^2.31.0"
+streamlit = "^1.30.0"
+pyyaml = "^6.0.1"
+ipython = "^8.20.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+
+[build-system]
+requires = ["poetry-core>=1.7.1"]
+build-backend = "poetry.core.masonry.api"
