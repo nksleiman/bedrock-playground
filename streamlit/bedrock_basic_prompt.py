@@ -1,6 +1,6 @@
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain_community.chat_models import BedrockChat
-from utils import get_bedrock_client, get_model_id
+from utils import get_bedrock_client, get_llama_model_id
 
 def bedrock_chat_w_prompt_template(chef_selection, prompt):
 
@@ -10,7 +10,7 @@ def bedrock_chat_w_prompt_template(chef_selection, prompt):
     have different kwargs structure
     '''
     chat_model = BedrockChat(
-        model_id=get_model_id(),
+        model_id=get_llama_model_id(),
         client=get_bedrock_client(),
         model_kwargs={"temperature": 0.2, "top_p": 0.9, "max_gen_len": 512},
     )
