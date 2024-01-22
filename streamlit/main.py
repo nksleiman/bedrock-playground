@@ -1,10 +1,12 @@
 import streamlit as st
-import utils
+import bedrock_basic_prompt
 
 
 # Function to handle the main logic
 def process_input(chef_selection, prompt):
-    response = utils.send_prompt_langchain(chef_selection, prompt)
+    response = bedrock_basic_prompt.bedrock_chat_w_prompt_template(
+        chef_selection, prompt
+    )
     st.write(response)
 
 
@@ -14,7 +16,7 @@ st.title("Cook With A Famous Chef")
 # Dropdown for chef selection
 chef_selection = st.sidebar.selectbox(
     "Select Your Chef",
-    ["", "Anthony Bourdain", "Alton Brown", "Gordon Ramsey"],
+    ["Anthony Bourdain", "Alton Brown", "Gordon Ramsey"],
     index=0,
 )
 
