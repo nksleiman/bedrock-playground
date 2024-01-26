@@ -36,3 +36,11 @@ poetry install
 ## Usage
 
 ```poetry run streamlit run ask_chef/main.py```
+
+## ConfluenceLoader
+
+In order to use ConfluenceLoader to load documents, I needed to run
+
+```
+brew install tesseract poppler
+```
