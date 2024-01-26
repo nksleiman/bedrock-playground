@@ -13,3 +13,5 @@ def get_bedrock_client():
 
 def get_llama_model_id():
     return "meta.llama2-70b-chat-v1"
+
+
