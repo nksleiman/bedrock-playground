@@ -35,4 +35,4 @@ poetry install
 
 ## Usage
 
-```python -m streamlit run streamlit/main.py```
+```poetry run streamlit run ask_chef/main.py```

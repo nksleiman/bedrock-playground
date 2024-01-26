@@ -1,6 +1,6 @@
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain_community.chat_models import BedrockChat
-from utils import get_bedrock_client, get_llama_model_id
+from utils.utils import get_bedrock_client, get_llama_model_id
 
 def bedrock_chat_w_prompt_template(chef_selection, prompt):
 
