@@ -44,3 +44,22 @@ In order to use ConfluenceLoader to load documents, I needed to run
 ```
 brew install tesseract poppler
 ```
+
+## Config
+
+I have a `config.yaml` file that is not included in the repo. To run, add it and populate the following values
+
+```
+confluence:
+  username: your_username
+  api_key: your_api_key
+  url: https://your_confluence_url
+  space_key: your_space_key
+
+bedrock:
+  aws_profile_name: your_aws_profile_name
+
+models:
+  - llama
+  - cohere
+  ```
