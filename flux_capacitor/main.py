@@ -1,12 +1,6 @@
 import streamlit as st
-import bedrock_chat_w_rag
-
-
-# Function to handle the main logic
-def process_input(prompt):
-    response = bedrock_chat_w_rag.bedrock_chat_with_rag(prompt)
-    st.write(response)
-
+from vectordb_utils import get_vectordb
+from bedrock_chat_w_rag import query_vectordb_directly
 
 # Set up the Streamlit interface
 st.title("Flux Capacitor Chat")
@@ -16,4 +10,6 @@ prompt_input = st.sidebar.text_area("What is your question?", max_chars=2000)
 
 # Button to trigger the processing
 if st.sidebar.button("Submit"):
-    process_input(prompt_input)
+    vectordb = get_vectordb()
+    response = query_vectordb_directly(vectordb, prompt_input)
+    st.write(response)

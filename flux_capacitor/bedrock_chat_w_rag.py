@@ -1,34 +1,15 @@
-from langchain.prompts.chat import ChatPromptTemplate
-from langchain_community.chat_models import BedrockChat
-from langchain_community.document_loaders import ConfluenceLoader
+from utils.utils import get_bedrock_llm
 from IPython import embed
-from utils.utils import load_config
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings.bedrock import BedrockEmbeddings
-from utils.utils import get_bedrock_client
+from langchain.retrievers.self_query.base import SelfQueryRetriever
 
+def query_vectordb_directly(vectordb, prompt):
 
-def document_loader():
-
-    config = load_config()['confluence']
-
-    loader = ConfluenceLoader(
-        url=config['url'],
-        username=config['username'],
-        api_key=config['api_key']
-    )
-
-    documents = loader.load(space_key=config['space_key'], include_attachments=True, limit=50)
-
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=100,
-        separators=["\n\n", "\n", "(?<=\. )", " ", ""]
-    )
-
-    chunks = splitter.split_documents(documents)
+    # docs = vectordb.similarity_search(prompt, k=3)
+    docs = vectordb.max_marginal_relevance_search(prompt, k=3, fetch_k=3)
 
     embed()
+    print(docs[0].page_content)
 
-def bedrock_chat_with_rag(prompt):
-    document_loader()
+def self_query_retriever(vectordb, prompt):
+    llm = get_bedrock_llm()
+

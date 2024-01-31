@@ -10,9 +10,9 @@ def bedrock_chat_w_prompt_template(chef_selection, prompt):
     have different kwargs structure
     """
 
-    config = load_config()['models']
+    config = load_config()["models"]
     chat_model = BedrockChat(
-        model_id=config['llama'],
+        model_id=config["llama"],
         client=get_bedrock_client(),
         model_kwargs={"temperature": 0.2, "top_p": 0.9, "max_gen_len": 512},
     )
